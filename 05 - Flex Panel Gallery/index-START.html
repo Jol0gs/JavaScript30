@@ -27,6 +27,7 @@
     .panels {
       min-height: 100vh;
       overflow: hidden;
+      display: flex;
     }
 
     .panel {
@@ -44,20 +45,35 @@
       font-size: 20px;
       background-size: cover;
       background-position: center;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
     }
 
-    .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
-    .panel2 { background-image:url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500); }
-    .panel3 { background-image:url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d); }
-    .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
-    .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
+    .panel1 { background-image:url(https://d.furaffinity.net/art/dr.saccharin/1721721076/1721721076.dr.saccharin_%D0%B4%D0%B0%D0%BD%D1%82%D0%B5.png); }
+    .panel2 { background-image:url(https://i.redd.it/3mj79xzls5be1.png); }
+    .panel3 { background-image:url(https://preview.redd.it/gb2et64ylwx61.jpg?width=1080&crop=smart&auto=webp&s=a4d219169a0124300074a0dfed9fe62b21324497); }
+    .panel4 { background-image:url(https://pbs.twimg.com/media/Ga3eaGMXwAEx7Aq?format=png&name=900x900); }
+    .panel5 { background-image:url(https://64.media.tumblr.com/22463fdcccd867a4379a5a0cdc643a25/01d7bebf24a83425-e7/s2048x3072/25cbebd4a8ee84cec821e31ccc7686dc168bd282.pnj); }
 
     /* Flex Children */
     .panel > * {
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
+      /* border: 1px solid red; */
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+
+    .panel > *:first-child {transform: translateY(-100%);}
+    .panel.open-active > *:first-child {transform: translateY(0);}
+    .panel > *:last-child {transform: translateY(100%);}
+    .panel.open-active > *:last-child {transform: translateY(0);}
 
     .panel p {
       text-transform: uppercase;
@@ -72,6 +88,7 @@
 
     .panel.open {
       font-size: 40px;
+      flex: 5;
     }
 
   </style>
@@ -106,6 +123,23 @@
   </div>
 
   <script>
+
+    const panels = document.querySelectorAll('.panel');
+
+    function toggleOpen(){
+      console.log('Hello');
+      this.classList.toggle('open');
+    }
+
+    function toggleActive(e){
+      console.log(e.propertyName);
+      if(e.propertyName.includes('flex')){
+        this.classList.toggle('open-active');
+      }
+    }
+
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
 
   </script>
 
